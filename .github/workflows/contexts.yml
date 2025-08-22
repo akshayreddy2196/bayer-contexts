@@ -1,0 +1,33 @@
+name: GitHub Context Example
+on:
+ workflow_dispatch
+jobs:
+  github-context-demo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+
+    - name: Display GitHub context
+      run: |
+       echo "Repository: ${{github.repository}}"
+       echo "event name: ${{github.event_name}}"
+       echo "Actor: ${{github.actor}}"
+       echo "workflow: ${{github.workflow}}"
+       echo "run ID: ${{github.run_id}}"
+       echo "Run number ${{github.run_number}}"
+
+    - name: Conditions step based on branch
+      if: ${{github.ref == 'refs/heads/main'}}
+      run: echo "this runs only on main branch"
+
+    - name: Trigger based on different events
+      run: |
+       if ["${{github.event_name}}" == "push"]; then
+        echo "this is a push event"
+        elsif ["${{github.event_name}}" == "pull_request"]; then
+         echo "this is a pull request event"
+          fi
+          
+      
+    
