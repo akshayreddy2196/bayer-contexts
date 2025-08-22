@@ -1,6 +1,7 @@
 name: GitHub Context Example
 on:
- workflow_dispatch
+ push:
+  branches: [main]
 jobs:
   github-context-demo:
     runs-on: ubuntu-latest
