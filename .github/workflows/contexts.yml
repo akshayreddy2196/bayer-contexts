@@ -22,12 +22,15 @@ jobs:
       run: echo "this runs only on main branch"
 
     - name: Trigger based on different events
-      run: |
-       if ["${{github.event_name}}" == "push"]; then
-        echo "this is a push event"
-        elsif ["${{github.event_name}}" == "pull_request"]; then
-         echo "this is a pull request event"
-          fi
+  run: |
+    if [ "${{ github.event_name }}" == "push" ]; then
+      echo "This is a push event"
+    elif [ "${{ github.event_name }}" == "pull_request" ]; then
+      echo "This is a pull request event"
+    else
+      echo "This is some other event: ${{ github.event_name }}"
+    fi
+
           
       
     
