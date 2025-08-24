@@ -9,7 +9,6 @@ on:
 jobs:
   show-env:
     runs-on: ubuntu-latest
-    # Job-level environment variables
     env:
       JOB_LEVEL: "job-level"
       FROM_INPUT: ${{ github.event.inputs.name || 'world' }}
@@ -21,18 +20,18 @@ jobs:
           echo "GITHUB_REF=${{ github.ref }}"
           echo "GITHUB_ACTOR=${{ github.actor }}"
 
-      - name: Access job-level env in shell
+      - name:  job-level env in shell
         run: |
           echo "JOB_LEVEL=$JOB_LEVEL"
           echo "FROM_INPUT=$FROM_INPUT"
 
-      - name: Override with step-level env
-        env:
-          JOB_LEVEL: "overridden-in-step"
-          STEP_ONLY: "present-only-in-this-step"
-        run: |
-          echo "JOB_LEVEL=$JOB_LEVEL"
-          echo "STEP_ONLY=$STEP_ONLY"
+      # - name:  step-level env
+      #   env:
+      #     JOB_LEVEL: "overridden-in-step"
+      #     STEP_ONLY: "present-only-in-this-step"
+      #   run: |
+      #     echo "JOB_LEVEL=$JOB_LEVEL"
+      #     echo "STEP_ONLY=$STEP_ONLY"
 
       - name: Use env context in expression
         run: echo "Hello, ${{ env.FROM_INPUT }}!"
