@@ -1,0 +1,45 @@
+name: 03-MultiStage-Demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build the app
+        run: echo "Build completed!"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Run tests
+        run: echo " Tests passed!"
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: test
+    environment: dev
+    steps:
+      - name: Deploy to Dev
+        run: echo " Deployed to Dev environment!"
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+    environment: staging
+    steps:
+      - name: Deploy to Staging
+        run: echo " Deployed to Staging environment!"
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment: prod
+    steps:
+      - name: Deploy to Prod
+        run: echo "Deployed to Prod environment!"
