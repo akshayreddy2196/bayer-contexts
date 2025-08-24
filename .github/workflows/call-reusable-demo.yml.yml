@@ -1,0 +1,15 @@
+name: Call Reusable Workflow Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name to greet"
+        required: true
+
+jobs:
+  call-greeting:
+    uses: ./.github/workflows/reusable-demo.yml
+    with:
+      user-name: ${{ github.event.inputs.name }}
+      message: "This is a reusable workflow demo!"
