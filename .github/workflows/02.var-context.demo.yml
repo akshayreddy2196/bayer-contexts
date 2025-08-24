@@ -1,0 +1,17 @@
+name: 02-Vars-Context-Demo
+on: workflow_dispatch
+
+jobs:
+  show-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print repository/organization variables
+        run: |
+          echo "ENVIRONMENT=${{ vars.ENVIRONMENT }}"
+          echo "BUILD_NUMBER=${{ vars.BUILD_NUMBER }}"
+          echo "Is ENVIRONMENT set? -> ${{ vars.ENVIRONMENT && 'yes' || 'no' }}"
+      - name: Use a var in a step env
+        env:
+          ACTIVE_ENV: ${{ vars.ENVIRONMENT }}
+        run: |
+          echo "ACTIVE_ENV=$ACTIVE_ENV"
