@@ -1,0 +1,21 @@
+name: Reusable Demo Workflow
+
+on:
+  workflow_call:
+    inputs:
+      user-name:
+        required: true
+        type: string
+      message:
+        required: false
+        type: string
+        default: "Welcome to GitHub Actions!"
+
+jobs:
+  greet-user:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting
+        run: |
+          echo "Hello, ${{ inputs['user-name'] }}!"
+          echo "${{ inputs['message'] }}"
